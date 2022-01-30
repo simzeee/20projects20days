@@ -40,6 +40,10 @@ h1 {
   padding: 10px;
 }
 
+video {
+  height: 40.2vh;
+}
+
 .controls .btn {
   border: 0;
   background: transparent;
