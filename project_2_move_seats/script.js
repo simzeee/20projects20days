@@ -7,10 +7,24 @@ const movieSelect = document.getElementById("movie");
 // can also use parseInt
 let ticketPrice = +movieSelect.value;
 
+// Save selected movie index and price
+function setMovieData(movieIndex, moviePrice) {
+  localStorage.setItem("selectedMovie", movieIndex);
+  localStorage.setItem("selectedMoviePrice", moviePrice);
+}
+
 //Update total and count
 function updateSelectedCount() {
-  const selectedSeats = document.querySelectorAll('.row .seat.selected')
-  
+  const selectedSeats = document.querySelectorAll(".row .seat.selected");
+
+  // Copy selected seats into arr
+  // Map through array
+  // return a new array of indexes
+
+  const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
+
+  localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
+
   const selectedSeatsCount = selectedSeats.length;
 
   count.innerText = selectedSeatsCount;
@@ -19,11 +33,11 @@ function updateSelectedCount() {
 
 // Movie select event
 
-movieSelect.addEventListener('change', e => {
-  ticketPrice = +e.target.value
-  updateSelectedCount()
+movieSelect.addEventListener("change", (e) => {
+  ticketPrice = +e.target.value;
+  setMovieData(e.target.selectedIndex, e.target.value);
+  updateSelectedCount();
 });
-
 
 // Seat click event
 container.addEventListener("click", (e) => {
@@ -31,7 +45,7 @@ container.addEventListener("click", (e) => {
     e.target.classList.contains("seat") &&
     !e.target.classList.contains("occupied")
   ) {
-    e.target.classList.toggle('selected');
+    e.target.classList.toggle("selected");
 
     updateSelectedCount();
   }
