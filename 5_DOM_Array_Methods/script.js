@@ -38,7 +38,8 @@ function doubleMoney() {
   data = data.map((user) => {
     // let objClone = { ...obj }; // pass all key:value pairs from an object
 
-    console.log({ ...user });
+    console.log({ ...user }.name = user.name + " STRING");
+    console.log(user.name)
     return { ...user, money: user.money * 2 };
   });
 
