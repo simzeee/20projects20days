@@ -43,7 +43,7 @@ const cardsData = getCardsData();
 const setCardsData = (cards) => {
   localStorage.setItem('cards', JSON.stringify(cards));
   window.location.reload();
-}
+};
 
 // Create all cards
 const createCards = () => {
@@ -156,5 +156,5 @@ addCardBtn.addEventListener('click', () => {
 clearBtn.addEventListener('click', () => {
   localStorage.clear();
   cardsContainer.innerHTML = '';
-  window.location.reload()
-})
+  window.location.reload();
+});
