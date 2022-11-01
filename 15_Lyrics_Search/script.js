@@ -45,23 +45,38 @@ const showData = (data) => {
   </ul>`;
 
   if (data.prev || data.next) {
-    
     more.innerHTML = `
-    ${data.prev ? `<button class="btn" onclick="getMoreSongs('${data.prev}')">Prev</button>` : ''}
-    ${data.next ? `<button class="btn" onclick="getMoreSongs('${data.next}')">Next</button>` : ''}`;
+    ${
+      data.prev
+        ? `<button class="btn" onclick="getMoreSongs('${data.prev}')">Prev</button>`
+        : ''
+    }
+    ${
+      data.next
+        ? `<button class="btn" onclick="getMoreSongs('${data.next}')">Next</button>`
+        : ''
+    }`;
   } else {
     more.innerHTML = '';
   }
 };
 
 // Get prev and next results
-async function getMoreSongs(url){
+async function getMoreSongs(url) {
   // https://cors-anywhere.herokuapp.com/corsdemo must request temporary access
   const res = await fetch(`https://cors-anywhere.herokuapp.com/${url}`);
   const data = await res.json();
 
-  showData(data)
+  showData(data);
 }
+
+const getLyrics = async (artist, songTitle) => {
+  console.log(artist, songTitle)
+  const res = await fetch(`${apiURL}/v1/Coldplay/Yellow`);
+  // const res2 = await fetch(`${apiURL}/v1/${artist}/${songTitle}`);
+  const data = await res.json();
+  console.log(data);
+};
 
 // Event listeners
 
@@ -74,5 +89,16 @@ form.addEventListener('submit', (e) => {
     alert('Please type in a search term');
   } else {
     searchSongs(searchTerm);
+  }
+});
+
+// Get lyrics button click
+result.addEventListener('click', (e) => {
+  const clickedEl = e.target;
+
+  if (clickedEl.tagName === 'BUTTON') {
+    const artist = clickedEl.getAttribute('data-artist');
+    const songTitle = clickedEl.getAttribute('data-songtitle');
+    getLyrics(artist, songTitle);
   }
 });
